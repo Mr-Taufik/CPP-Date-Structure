@@ -1,0 +1,36 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+
+
+int main()
+{
+     //二分查找
+     vector<int> arr{0, 1, 1, 1, 8, 9, 9};
+     int pos1 = upper_bound(arr.begin(), arr.end(), 8) - arr.begin();
+     int pos2 = upper_bound(arr.begin() + 2, arr.end(), 0) - arr.begin();
+
+     cout << pos1 << endl;
+     cout << pos2 << endl;
+     //如果找不到会返回他的大小
+     if(pos1 == arr.size())
+     {
+          cout << "No" << endl;
+     }
+
+     reverse(arr.begin(), arr.end());
+     for(auto ele : arr)
+     {
+          cout << ele << endl;
+     }
+     reverse(arr.begin() + 2, arr.begin() + 5);
+     for(auto ele : arr)
+     {
+          cout << ele << endl;
+     }
+     return 0;
+}
