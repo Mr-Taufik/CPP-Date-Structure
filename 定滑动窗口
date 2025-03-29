@@ -1,0 +1,102 @@
+这种题的主要思路就是先输入你要的字串长度，然后把这k个字符先读取，判断有多少个元音字符，然后记录为最大值，最后在每一次窗口往后移动一格，
+  再判断左边减少的和右边增加的再去判断cout，然后使用max函数去找maxcout和cout哪个更大。
+
+#include <iostream>
+using namespace std;
+
+bool isVowel(char c)
+{
+     return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u'
+            || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';
+}
+
+int maxVowelsInSubstring(const string&  s, int k)
+{
+     int n = s.size();
+     if(k > n)
+     {
+          return 0;
+     }
+
+     int count = 0;
+
+     for(int i = 0; i < k; i++)
+     {
+          if( isVowel(s[i]))
+          {
+               count++;
+          }
+     }
+
+     int maxVowels = count;
+
+     for (int i = k; i < n; i++) {
+          // 移出窗口左侧字符
+          if (isVowel(s[i - k])) {
+               count--;
+          }
+          // 加入窗口右侧新字符
+          if (isVowel(s[i])) {
+               count++;
+          }
+          // 更新最大值
+          maxVowels = max(maxVowels, count);
+     }
+
+     return maxVowels;
+}
+int main()
+{
+     cout << maxVowelsInSubstring("abciiiidef", 3) << endl; // 期望输出 3
+     cout << maxVowelsInSubstring("aeiou", 2) << endl;       // 期望输出 2
+     cout << maxVowelsInSubstring("leetcode", 3) << endl;    // 期望输出 2
+     cout << maxVowelsInSubstring("rhythms", 4) << endl;     // 期望输出 0
+}
+
+
+下面这个是按照可以自己输入修改的
+#include <bits/stdc++.h>
+using namespace std;
+
+// 判断字符是否为元音
+bool isVowel(char c) {
+     return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u'
+            || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';
+}
+
+// 返回长度为 k 的子串中能包含的最大元音数
+int maxVowelsInSubstring(const string& s, int k) {
+     int n = s.size();
+     if (k > n) return 0;
+
+     int count = 0;
+     for (int i = 0; i < k; i++) {
+          if (isVowel(s[i])) count++;
+     }
+
+     int maxVowels = count;
+
+     for (int i = k; i < n; i++) {
+          if (isVowel(s[i - k])) count--;
+          if (isVowel(s[i])) count++;
+          maxVowels = max(maxVowels, count);
+     }
+
+     return maxVowels;
+}
+
+int main() {
+     string s;
+     int k;
+
+     cout << "shuruzifuchaun  s: ";
+     cin >> s;
+     cout << "shuruzichuanchangdu k: ";
+     cin >> k;
+
+     int result = maxVowelsInSubstring(s, k);
+     cout << "zuidayuanying: " << result << endl;
+
+     return 0;
+}
+
